@@ -53,6 +53,7 @@ services:
     image: composer:composer-2.6.1
     working_dir: /var/www/html
     volumes:
+      - "${PATH_CONFIG_PHP}:/usr/local/etc/php/php.ini"
       - "${PATH_PROJECT_SOURCE}:/var/www/html"
     depends_on:
       - php

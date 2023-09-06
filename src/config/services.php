@@ -31,4 +31,21 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'api' => [
+        'open_weather' => [
+            'key' => env('OPEN_WEATHER_API_KEY', ''),
+            'max_output' => env('OPEN_WEATHER_MAX_OUTPUT', '5'),
+            'unit' => env('OPEN_WEATHER_UNIT', 'metric'),
+            'uri' => env('OPEN_WEATHER_API_URI', ''),
+        ],
+        'geoapify' => [
+            'filter' => env('GEOAPIFY_FILTER', 'countrycode:none'),
+            'format' => env('GEOAPIFY_FORMAT', 'json'),
+            'key' => env('GEOAPIFY_API_KEY', ''),
+            'lang' => env('GEOAPIFY_LANG', 'en'),
+            'max_output' => env('GEOAPIFY_MAX_OUTPUT', '1'),
+            'type' => env('GEOAPIFY_TYPE', 'city'),
+            'uri' => env('GEOAPIFY_API_URI', ''),
+        ],
+    ],
 ];

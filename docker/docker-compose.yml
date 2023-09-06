@@ -1,0 +1,92 @@
+version: '3.8'
+
+networks:
+  weather-app:
+
+services:
+  # +----------------------+ #
+  # | Container: NginX     | #
+  # +----------------------+ #
+  webserver:
+    networks:
+      - weather-app
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: containers/nginx/Dockerfile
+    image: nginx:nginx-stable-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - "${PATH_CONFIG_NGINX}:/etc/nginx/conf.d/default.conf"
+      - "${PATH_PROJECT_SOURCE}:/var/www/html"
+    depends_on:
+      - php
+
+  # +----------------------+ #
+  # | Container: PHP       | #
+  # +----------------------+ #
+  php:
+    networks:
+      - weather-app
+    container_name: php
+    build:
+      context: .
+      dockerfile: containers/php/Dockerfile
+    image: php:php-8.1-fpm-alpine
+    ports:
+      - "9000:9000"
+    volumes:
+      - "${PATH_CONFIG_PHP}:/usr/local/etc/php/php.ini"
+      - "${PATH_PROJECT_SOURCE}:/var/www/html"
+
+  # +----------------------+ #
+  # | Container: Composer  | #
+  # +----------------------+ #
+  composer:
+    networks:
+      - weather-app
+    container_name: composer
+    build:
+      context: .
+      dockerfile: containers/composer/Dockerfile
+    image: composer:composer-2.6.1
+    working_dir: /var/www/html
+    volumes:
+      - "${PATH_PROJECT_SOURCE}:/var/www/html"
+    depends_on:
+      - php
+    entrypoint: ['composer']
+
+  # +----------------------+ #
+  # | Container: NPM       | #
+  # +----------------------+ #
+  npm:
+    networks:
+      - weather-app
+    container_name: npm
+    image: node:20.6-alpine
+    working_dir: /var/www/html
+    volumes:
+      - "${PATH_PROJECT_SOURCE}:/var/www/html"
+    entrypoint: ['npm']
+
+  # +----------------------+ #
+  # | Container: Artisan   | #
+  # +----------------------+ #
+  artisan:
+    networks:
+      - weather-app
+    container_name: artisan
+    build:
+      context: .
+      dockerfile: containers/php/Dockerfile
+    image: artisan:laravel-9
+    working_dir: /var/www/html
+    volumes:
+      - "${PATH_PROJECT_SOURCE}:/var/www/html"
+    links:
+      - php
+    depends_on:
+      - php
+    entrypoint: ['php', '/var/www/html/artisan']

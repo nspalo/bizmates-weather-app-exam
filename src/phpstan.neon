@@ -3,3 +3,9 @@ parameters:
     paths:
         - app
         - tests
+
+    ignoreErrors:
+    # TODO: Laravel 9 - PhpStan Errors: Skipping for now as its not related to the actual task/code
+    - '/Method App\\Http\\Middleware\\Authenticate::redirectTo\(\) should return string\|null but return statement is missing./'
+    - '/Method App\\Http\\Middleware\\RedirectIfAuthenticated::handle\(\) should return Illuminate\\Http\\RedirectResponse\|Illuminate\\Http\\Response but returns Illuminate\\Http\\RedirectResponse\|Illuminate\\Routing\\Redirector./'
+

@@ -11,6 +11,6 @@ class WeatherUpdateController extends Controller
 {
     public function index(): View
     {
-        return view('weather-update');
+        return view('weather-app/weather-update');
     }
 }

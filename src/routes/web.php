@@ -14,11 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', [WeatherUpdateController::class, 'index'])->name('landing-page');
 
-Route::get(
-    '/',
-    [WeatherUpdateController::class, 'index']
-)->name('landing-page');

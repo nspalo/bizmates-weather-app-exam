@@ -39,13 +39,14 @@ return [
             'uri' => env('OPEN_WEATHER_API_URI', ''),
         ],
         'geoapify' => [
-            'filter' => env('GEOAPIFY_FILTER', 'countrycode:none'),
+            'filter' => env('GEOAPIFY_FILTER', 'countrycode:jp'),
             'format' => env('GEOAPIFY_FORMAT', 'json'),
             'key' => env('GEOAPIFY_API_KEY', ''),
             'lang' => env('GEOAPIFY_LANG', 'en'),
             'max_output' => env('GEOAPIFY_MAX_OUTPUT', '1'),
             'type' => env('GEOAPIFY_TYPE', 'city'),
             'uri' => env('GEOAPIFY_API_URI', ''),
+            'default_search' => env('GEOAPIFY_DEFAULT', 'Tokyo, Japan'),
         ],
     ],
 ];

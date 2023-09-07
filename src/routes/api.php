@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\WeatherApp\WeatherUpdateController;
+use App\Http\Controllers\API\WeatherApp\WeatherUpdateApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Bizmates Ph Weather App API Routes
 Route::get('/weather-update', [
     'as' => 'forecast',
-    'uses' => WeatherUpdateController::class,
+    'uses' => WeatherUpdateApiController::class,
 ]);

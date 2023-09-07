@@ -9,7 +9,6 @@ use Illuminate\Http\Client\Response;
 
 interface OpenWeatherApiServiceInterface
 {
-    public function getWeatherForecast(float $lon, float $lat): Response;
-
-    public function getWeatherUpdate(float $lon, float $lat): Response;
+    public function supports(WeatherTypeEnum $weatherApiType): bool;
+    public function getWeatherData(float $lon, float $lat): Response;
 }

@@ -195,6 +195,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Weather App Service Providers
+         */
+        App\Providers\WeatherAppServiceProvider::class,
     ],
 
     /*

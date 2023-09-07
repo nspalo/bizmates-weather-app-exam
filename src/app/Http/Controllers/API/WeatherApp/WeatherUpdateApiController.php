@@ -42,7 +42,7 @@ class WeatherUpdateApiController extends Controller
 
     public function __invoke(Request $request): JsonResource
     {
-        $location = $request->get('location') ?? 'Metro Manila, Philippines';
+        $location = $request->get('location') ?? \config('services.api.geoapify.default_search');
 
         $responseGeolocation = $this->getGeoapifyGeolocation($location);
 
@@ -96,6 +96,10 @@ class WeatherUpdateApiController extends Controller
         $data = $responseGeolocation->json('results');
 
         return [
+            'country' => $data[0]['country'],
+            'country_code' => $data[0]['country_code'],
+            'city' => $data[0]['city'],
+            'formatted' => $data[0]['formatted'],
             'lon' => $data[0]['lon'],
             'lat' => $data[0]['lat'],
         ];

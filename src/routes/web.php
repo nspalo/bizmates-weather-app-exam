@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\WeatherApp\WeatherUpdateController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,15 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', [WeatherUpdateController::class, 'index'])->name('landing-page');
 
-Route::get(
-    '/',
-    [WeatherUpdateController::class, 'index']
-)->name('landing-page');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

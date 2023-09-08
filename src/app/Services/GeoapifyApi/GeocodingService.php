@@ -4,64 +4,52 @@ declare(strict_types=1);
 
 namespace App\Services\GeoapifyApi;
 
+use App\Services\ConfigurationMapper\Interfaces\ServiceConfigurationMapperInterface;
 use App\Services\GeoapifyApi\Interfaces\GeoapifyApiServiceInterface;
+use App\Services\GeoapifyApi\Resources\GeolocationResource;
 use App\Services\UrlQueryStringBuilder\Interfaces\UrlQueryStringBuilderServiceInterface;
 use Illuminate\Support\Facades\Http;
 
 class GeocodingService implements GeoapifyApiServiceInterface
 {
-    private string $geoapifyApiKey;
-    private string $geoapifyApiUri;
-    private string $geoapifyApiFilter;
-    private string $geoapifyApiFormat;
-    private string $geoapifyApiLang;
-    private string $geoapifyApiMaxOutput;
-    private string $geoapifyApiType;
     private UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService;
+    private ServiceConfigurationMapperInterface $serviceConfigurationMapper;
 
-    public function __construct(UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService)
-    {
-        $this->geoapifyApiKey = \config('services.api.geoapify.key');
-        $this->geoapifyApiUri = \config('services.api.geoapify.uri');
-        $this->geoapifyApiFilter = \config('services.api.geoapify.filter');
-        $this->geoapifyApiFormat = \config('services.api.geoapify.format');
-        $this->geoapifyApiLang = \config('services.api.geoapify.lang');
-        $this->geoapifyApiMaxOutput = \config('services.api.geoapify.max_output');
-        $this->geoapifyApiType = \config('services.api.geoapify.type');
-
+    public function __construct(
+        ServiceConfigurationMapperInterface $serviceConfigurationMapper,
+        UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService
+    ) {
+        $this->serviceConfigurationMapper = $serviceConfigurationMapper;
         $this->urlQueryStringBuilderService = $urlQueryStringBuilderService;
+
+        $this->serviceConfigurationMapper->loadConfig('services.api.geoapify');
     }
 
     private function buildGeoapifyApiUrl(string $location): string
     {
-        $queryParam = [
-            'text' => $location,
-            'type' => $this->geoapifyApiType,
-            'limit' => $this->geoapifyApiMaxOutput,
-            'lang' => $this->geoapifyApiLang,
-            'filter' => $this->geoapifyApiFilter,
-            'format' => $this->geoapifyApiFormat,
-            'apiKey' => $this->geoapifyApiKey,
-        ];
+        $serviceApiUri = $this->serviceConfigurationMapper->getByKey('uri');
+        $queryParam = $this->serviceConfigurationMapper->map([
+            'type' => 'type',
+            'limit' => 'max_output',
+            'lang' => 'lang',
+            'filter' => 'filter',
+            'format' => 'format',
+            'apiKey' => 'key',
+        ]);
 
+        $queryParam['text'] = $location;
         $queryString = $this->urlQueryStringBuilderService->build($queryParam);
 
-        return 'https://' . $this->geoapifyApiUri  . '?' . $queryString;
+        return 'https://' . $serviceApiUri  . '?' . $queryString;
     }
 
-    public function getGeolocation(string $location): array
+    public function getGeolocation(string $location): GeolocationResource
     {
         $geolocationUrl = $this->buildGeoapifyApiUrl($location);
+
         $responseGeolocation = Http::get($geolocationUrl);
         $data = $responseGeolocation->json('results');
 
-        return [
-            'city' => $data[0]['city'],
-            'country' => $data[0]['country'],
-            'country_code' => $data[0]['country_code'],
-            'formatted' => $data[0]['formatted'],
-            'lon' => $data[0]['lon'],
-            'lat' => $data[0]['lat'],
-        ];
+        return new GeolocationResource($data);
     }
 }

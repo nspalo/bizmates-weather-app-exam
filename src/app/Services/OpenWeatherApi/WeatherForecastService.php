@@ -8,19 +8,19 @@ use App\Enums\WeatherTypeEnum;
 use App\Services\GeoapifyApi\Resources\GeolocationResource;
 use App\Services\OpenWeatherApi\Interfaces\OpenWeatherApiServiceInterface;
 use App\Services\OpenWeatherApi\Interfaces\WeatherResourceInterface;
-use App\Services\OpenWeatherApi\Resources\WeatherResource;
+use App\Services\OpenWeatherApi\Resources\WeatherResources;
 
-class WeatherUpdateService extends AbstractOpenWeatherApiService implements OpenWeatherApiServiceInterface
+class WeatherForecastService extends AbstractOpenWeatherApiService implements OpenWeatherApiServiceInterface
 {
     public function getWeatherData(GeolocationResource $geolocation): WeatherResourceInterface
     {
-        $openWeatherApiResponse = $this->sendRequest($geolocation, WeatherTypeEnum::Current);
+        $openWeatherApiResponse = $this->sendRequest($geolocation, WeatherTypeEnum::Forecast);
 
-        return new WeatherResource($openWeatherApiResponse->json());
+        return new WeatherResources($openWeatherApiResponse->json());
     }
 
     public function supports(WeatherTypeEnum $weatherApiType): bool
     {
-        return $weatherApiType === WeatherTypeEnum::Current;
+        return $weatherApiType === WeatherTypeEnum::Forecast;
     }
 }

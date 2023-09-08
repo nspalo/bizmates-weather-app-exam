@@ -31,17 +31,19 @@ class WeatherUpdateApiController extends Controller
         $responseGeolocation = $this->geoapifyGeocodingService->getGeolocation($location);
 
         $responseCurrentWeather =  $this->weatherApiServiceFactory->make(WeatherTypeEnum::Current)
-            ->getWeatherData($responseGeolocation['lon'], $responseGeolocation['lat']);
+            ->getWeatherData($responseGeolocation);
 
         $responseForecastWeather =  $this->weatherApiServiceFactory->make(WeatherTypeEnum::Forecast)
-            ->getWeatherData($responseGeolocation['lon'], $responseGeolocation['lat']);
+            ->getWeatherData($responseGeolocation);
 
-        return new JsonResource([
+        $data = [
+            'geolocation' => $responseGeolocation,
             'weather' => [
-                'geolocation' => $responseGeolocation,
-                'current' => $responseCurrentWeather->json(),
-                'forecast' => $responseForecastWeather->json(),
-            ],
-        ]);
+                'current' => $responseCurrentWeather->getResponse(),
+                'forecast' => $responseForecastWeather->getResponse(),
+            ]
+        ];
+
+        return new JsonResource($data);
     }
 }

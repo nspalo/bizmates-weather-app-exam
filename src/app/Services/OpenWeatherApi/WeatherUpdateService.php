@@ -5,49 +5,18 @@ declare(strict_types=1);
 namespace App\Services\OpenWeatherApi;
 
 use App\Enums\WeatherTypeEnum;
-use App\Services\ConfigurationMapper\Interfaces\ServiceConfigurationMapperInterface;
+use App\Services\GeoapifyApi\Resources\GeolocationResource;
 use App\Services\OpenWeatherApi\Interfaces\OpenWeatherApiServiceInterface;
-use App\Services\UrlQueryStringBuilder\Interfaces\UrlQueryStringBuilderServiceInterface;
-use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Http;
+use App\Services\OpenWeatherApi\Interfaces\WeatherResourceInterface;
+use App\Services\OpenWeatherApi\Resources\WeatherResource;
 
-class WeatherUpdateService implements OpenWeatherApiServiceInterface
+class WeatherUpdateService extends AbstractOpenWeatherApiService implements OpenWeatherApiServiceInterface
 {
-    private ServiceConfigurationMapperInterface $serviceConfigurationMapper;
-
-    private UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService;
-
-    public function __construct(
-        ServiceConfigurationMapperInterface $serviceConfigurationMapper,
-        UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService
-    ) {
-        $this->serviceConfigurationMapper = $serviceConfigurationMapper;
-        $this->urlQueryStringBuilderService = $urlQueryStringBuilderService;
-
-        $this->serviceConfigurationMapper->loadConfig('services.api.open_weather');
-    }
-
-    public function getWeatherData(float $lon, float $lat): Response
+    public function getWeatherData(GeolocationResource $geolocation): WeatherResourceInterface
     {
-        $serviceApiUri = $this->serviceConfigurationMapper->getByKey('uri');
-        $queryParam = $this->serviceConfigurationMapper->map([
-            'units' => 'unit',
-            'lang' => 'lang',
-            'appid' => 'key',
-        ]);
+        $openWeatherApiResponse = $this->sendRequest($geolocation, WeatherTypeEnum::Current);
 
-        $queryParam = array_merge(
-            $queryParam, [
-                'lon' => $lon,
-                'lat' => $lat,
-            ]
-        );
-
-        $queryString = $this->urlQueryStringBuilderService->build($queryParam);
-
-        $currentWeatherUrl = 'https://' . $serviceApiUri . '/' . WeatherTypeEnum::Current->value . '?' . $queryString;
-
-        return Http::get($currentWeatherUrl);
+        return new WeatherResource($openWeatherApiResponse->json());
     }
 
     public function supports(WeatherTypeEnum $weatherApiType): bool

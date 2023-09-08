@@ -6,6 +6,7 @@ namespace App\Services\GeoapifyApi;
 
 use App\Services\ConfigurationMapper\Interfaces\ServiceConfigurationMapperInterface;
 use App\Services\GeoapifyApi\Interfaces\GeoapifyApiServiceInterface;
+use App\Services\GeoapifyApi\Resources\GeolocationResource;
 use App\Services\UrlQueryStringBuilder\Interfaces\UrlQueryStringBuilderServiceInterface;
 use Illuminate\Support\Facades\Http;
 
@@ -42,20 +43,13 @@ class GeocodingService implements GeoapifyApiServiceInterface
         return 'https://' . $serviceApiUri  . '?' . $queryString;
     }
 
-    public function getGeolocation(string $location): array
+    public function getGeolocation(string $location): GeolocationResource
     {
         $geolocationUrl = $this->buildGeoapifyApiUrl($location);
 
         $responseGeolocation = Http::get($geolocationUrl);
         $data = $responseGeolocation->json('results');
 
-        return [
-            'city' => $data[0]['city'],
-            'country' => $data[0]['country'],
-            'country_code' => $data[0]['country_code'],
-            'formatted' => $data[0]['formatted'],
-            'lon' => $data[0]['lon'],
-            'lat' => $data[0]['lat'],
-        ];
+        return new GeolocationResource($data);
     }
 }

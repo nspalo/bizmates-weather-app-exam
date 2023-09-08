@@ -13,11 +13,16 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <style>
+        body {
+            background-color: #aed6ff !important;
+        }
+    </style>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app" class="col-lg-8 mx-auto p-4 py-md-5">
+    <div id="app" class="col-lg-8 mx-auto p-1 py-md-5">
         @include("layouts.header")
 
         <main>

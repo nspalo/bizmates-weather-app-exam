@@ -36,6 +36,7 @@ return [
             'key' => env('OPEN_WEATHER_API_KEY', ''),
             'max_output' => env('OPEN_WEATHER_MAX_OUTPUT', '5'),
             'unit' => env('OPEN_WEATHER_UNIT', 'metric'),
+            'lang' => env('OPEN_WEATHER_LANG', 'en'),
             'uri' => env('OPEN_WEATHER_API_URI', ''),
         ],
         'geoapify' => [

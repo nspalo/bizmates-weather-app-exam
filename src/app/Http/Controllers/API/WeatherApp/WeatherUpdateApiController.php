@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API\WeatherApp;
 
+use App\Enums\WeatherTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Services\GeoapifyApi\Interfaces\GeoapifyApiServiceInterface;
-use App\Services\OpenWeatherApi\Interfaces\OpenWeatherApiServiceInterface;
+use App\Services\OpenWeatherApi\Interfaces\OpenWeatherApiServiceFactoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class WeatherUpdateApiController extends Controller
 {
     protected GeoapifyApiServiceInterface $geoapifyGeocodingService;
-    protected OpenWeatherApiServiceInterface $weatherApiService;
+    protected OpenWeatherApiServiceFactoryInterface $weatherApiServiceFactory;
 
     public function __construct(
         GeoapifyApiServiceInterface $geoapifyGeocodingService,
-        OpenWeatherApiServiceInterface $weatherApiService
+        OpenWeatherApiServiceFactoryInterface $weatherApiServiceFactory
     ) {
         $this->geoapifyGeocodingService = $geoapifyGeocodingService;
-        $this->weatherApiService = $weatherApiService;
+        $this->weatherApiServiceFactory = $weatherApiServiceFactory;
     }
 
     public function __invoke(Request $request): JsonResource
@@ -29,8 +30,11 @@ class WeatherUpdateApiController extends Controller
 
         $responseGeolocation = $this->geoapifyGeocodingService->getGeolocation($location);
 
-        $responseCurrentWeather =  $this->weatherApiService->getWeatherUpdate($responseGeolocation['lon'], $responseGeolocation['lat']);
-        $responseForecastWeather =  $this->weatherApiService->getWeatherForecast($responseGeolocation['lon'], $responseGeolocation['lat']);
+        $responseCurrentWeather =  $this->weatherApiServiceFactory->make(WeatherTypeEnum::Current)
+            ->getWeatherData($responseGeolocation['lon'], $responseGeolocation['lat']);
+
+        $responseForecastWeather =  $this->weatherApiServiceFactory->make(WeatherTypeEnum::Forecast)
+            ->getWeatherData($responseGeolocation['lon'], $responseGeolocation['lat']);
 
         return new JsonResource([
             'weather' => [

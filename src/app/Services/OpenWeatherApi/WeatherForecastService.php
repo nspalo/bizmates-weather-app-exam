@@ -11,7 +11,7 @@ use App\Services\UrlQueryStringBuilder\Interfaces\UrlQueryStringBuilderServiceIn
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-class WeatherUpdateService implements OpenWeatherApiServiceInterface
+class WeatherForecastService implements OpenWeatherApiServiceInterface
 {
     private ServiceConfigurationMapperInterface $serviceConfigurationMapper;
 
@@ -33,6 +33,7 @@ class WeatherUpdateService implements OpenWeatherApiServiceInterface
         $queryParam = $this->serviceConfigurationMapper->map([
             'units' => 'unit',
             'lang' => 'lang',
+            'cnt' => 'max_output',
             'appid' => 'key',
         ]);
 
@@ -45,13 +46,13 @@ class WeatherUpdateService implements OpenWeatherApiServiceInterface
 
         $queryString = $this->urlQueryStringBuilderService->build($queryParam);
 
-        $currentWeatherUrl = 'https://' . $serviceApiUri . '/' . WeatherTypeEnum::Current->value . '?' . $queryString;
+        $forecastWeatherUrl =  'https://' . $serviceApiUri . '/' . WeatherTypeEnum::Forecast->value . '?' . $queryString;
 
-        return Http::get($currentWeatherUrl);
+        return Http::get($forecastWeatherUrl);
     }
 
     public function supports(WeatherTypeEnum $weatherApiType): bool
     {
-        return $weatherApiType === WeatherTypeEnum::Current;
+        return $weatherApiType === WeatherTypeEnum::Forecast;
     }
 }

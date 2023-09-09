@@ -37,11 +37,9 @@ class WeatherUpdateController extends Controller
             ->getWeatherData($responseGeolocation);
 
         $data = [
-            'geolocation' => $responseGeolocation,
-            'weather' => [
-                'current' => $responseCurrentWeather->getResponse(),
-                'forecast' => $responseForecastWeather->getResponse(),
-            ]
+            'geolocation' => $responseGeolocation->getResponse(),
+            'weather' => $responseCurrentWeather->getResponse(),
+            'weatherForecasts' => $responseForecastWeather->getResponse(),
         ];
 
         return view('weather-app/weather-update', $data);

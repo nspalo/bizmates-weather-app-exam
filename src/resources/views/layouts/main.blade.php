@@ -15,9 +15,19 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <style>
+        body {
+            background-color: #aed6ff !important;
+        }
+
+        .display-4 {
+            font-size: 5.5rem;
+        }
+    </style>
 </head>
 <body>
-    <div id="app" class="col-lg-8 mx-auto p-4 py-md-5">
+    <div id="app" class="col-lg-8 mx-auto p-1 py-md-5">
         @include("layouts.header")
 
         <main>

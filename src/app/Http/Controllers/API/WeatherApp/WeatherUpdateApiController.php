@@ -37,11 +37,9 @@ class WeatherUpdateApiController extends Controller
             ->getWeatherData($responseGeolocation);
 
         $data = [
-            'geolocation' => $responseGeolocation,
-            'weather' => [
-                'current' => $responseCurrentWeather->getResponse(),
-                'forecast' => $responseForecastWeather->getResponse(),
-            ]
+            'geolocation' => $responseGeolocation->getResponse(),
+            'weather' => $responseCurrentWeather->getResponse(),
+            'weatherForecasts' => $responseForecastWeather->getResponse(),
         ];
 
         return new JsonResource($data);

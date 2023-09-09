@@ -20,8 +20,8 @@
 
                 <form class="row g-3">
                     <div class="d-flex input-group rounded mb-3">
-                        <input id="inputAddress2" class="form-control rounded" type="search" placeholder="City" aria-label="Search" aria-describedby="search-input">
-                        <button id="search-button" class="btn btn-outline-secondary rounded" type="button">Search</button>
+                        <input id="inputAddress" class="form-control rounded" type="search" placeholder="City" aria-label="Search" aria-describedby="search-input">
+                        <button id="searchButton" class="btn btn-outline-secondary rounded" type="button" onclick="sendMessage()">Search</button>
                     </div>
                 </form>
             </div><!-- Header: Weather Card -->
@@ -151,4 +151,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('custom-js')
+    @vite(['resources/js/weather-app.js'])
 @endsection

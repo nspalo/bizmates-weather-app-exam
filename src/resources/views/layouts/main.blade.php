@@ -36,5 +36,7 @@
 
         @include("layouts.footer")
     </div>
+
+    @yield('custom-js')
 </body>
 </html>

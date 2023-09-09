@@ -15,7 +15,7 @@ class WeatherResources extends Resource implements WeatherResourceInterface
 
         $forecast = [];
         foreach ($weatherForecast as $weather) {
-            $forecast[] = new WeatherResource([
+            $weatherData = new WeatherResource([
                 'coord' => $this->resource['city']['coord'],
                 'weather' => $weather['weather'],
                 'main' => $weather['main'],
@@ -29,6 +29,8 @@ class WeatherResources extends Resource implements WeatherResourceInterface
                 'timezone' => $this->resource['city']['timezone'],
                 'name' => $this->resource['city']['name'],
             ]);
+
+            $forecast[] = $weatherData->getResponse();
         }
 
         return $forecast;

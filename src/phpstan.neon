@@ -13,9 +13,8 @@ parameters:
     - '/Parameter \#1 \$json of function json_decode expects string, string\|false given./'
     - '/Parameter \#1 \$body of static method Illuminate\\Support\\Facades\\Http::response\(\) expects array\|string\|null, string\|false given/'
 
+    # TODO: Skip this! Laravel codebase
     - '/(.*?) has parameter \$code with no type specified/'
     - '/(.*?) has parameter \$message with no type specified/'
     - '/(.*?) no value type specified in iterable type array/'
     - '/(.*?) no value type specified in iterable type iterable./'
-
-

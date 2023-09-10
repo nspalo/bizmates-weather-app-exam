@@ -19,8 +19,6 @@ class WeatherResourcesTest extends TestCase
             base_path('tests/Fixtures/ApiResponse/weather-forecast-response.json')
         );
 
-        dump($apiServiceTestResponse);
-
         $data = json_decode($apiServiceTestResponse, true, 512, JSON_THROW_ON_ERROR);
 
         $expected = [

@@ -22,7 +22,7 @@ enum Direction: string
      */
     public static function convertFromDegrees(int $degrees = 0): string
     {
-        if($degrees < 0) {
+        if ($degrees < 0) {
             // Handle negative input value
             $degrees *= -1;
         }

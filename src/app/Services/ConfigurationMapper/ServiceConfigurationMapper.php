@@ -44,7 +44,7 @@ class ServiceConfigurationMapper implements ServiceConfigurationMapperInterface
         foreach ($this->config as $key => $value) {
             $foundKey = array_search($key, $keyMapping, true);
 
-            if($foundKey !== false) {
+            if ($foundKey !== false) {
                 $resolved[$foundKey] = $value;
             }
         }

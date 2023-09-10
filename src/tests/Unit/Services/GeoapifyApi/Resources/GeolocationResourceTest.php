@@ -15,7 +15,6 @@ class GeolocationResourceTest extends TestCase
      */
     public function testResourceData(): void
     {
-
         $apiServiceTestResponse = file_get_contents(
             base_path('tests/Fixtures/ApiResponse/geocoding-response.json')
         );

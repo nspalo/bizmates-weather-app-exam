@@ -64,6 +64,6 @@ class GeocodingService implements GeoapifyApiServiceInterface
         $queryParam['text'] = $location;
         $queryString = $this->urlQueryStringBuilderService->build($queryParam);
 
-        return 'https://' . $serviceApiUri  . '?' . $queryString;
+        return 'https://' . $serviceApiUri . '?' . $queryString;
     }
 }

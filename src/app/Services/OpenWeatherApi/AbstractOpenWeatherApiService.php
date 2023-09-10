@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services\OpenWeatherApi;
 
 use App\Enums\WeatherTypeEnum;
-use App\Http\Resources\Resource;
 use App\Services\ConfigurationMapper\Interfaces\ServiceConfigurationMapperInterface;
 use App\Services\GeoapifyApi\Resources\GeolocationResource;
 use App\Services\OpenWeatherApi\Interfaces\WeatherResourceInterface;
@@ -29,6 +28,8 @@ abstract class AbstractOpenWeatherApiService
         $this->serviceConfigurationMapper->loadConfig('services.api.open_weather');
     }
 
+    abstract public function getWeatherData(GeolocationResource $geolocation): WeatherResourceInterface;
+
     protected function buildOpenWeatherApiQueryString(GeolocationResource $geolocation, WeatherTypeEnum $weatherApiServiceType): string
     {
         $mapping = [
@@ -43,7 +44,8 @@ abstract class AbstractOpenWeatherApiService
 
         $queryParam = $this->serviceConfigurationMapper->map($mapping);
         $queryParam = array_merge(
-            $queryParam, [
+            $queryParam,
+            [
                 'lon' => $geolocation['lon'],
                 'lat' => $geolocation['lat'],
             ]
@@ -61,6 +63,4 @@ abstract class AbstractOpenWeatherApiService
 
         return Http::get($openWeatherApiServiceUrl);
     }
-
-    abstract public function getWeatherData(GeolocationResource $geolocation): WeatherResourceInterface;
 }

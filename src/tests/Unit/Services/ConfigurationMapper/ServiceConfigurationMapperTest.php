@@ -6,8 +6,7 @@ namespace Unit\Services\ConfigurationMapper;
 
 use App\Services\ConfigurationMapper\Exceptions\UnknownServiceConfigurationException;
 use App\Services\ConfigurationMapper\ServiceConfigurationMapper;
-use Tests\TestCase;
-
+use Unit\TestCase;
 
 class ServiceConfigurationMapperTest extends TestCase
 {

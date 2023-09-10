@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 
 class WeatherResource extends Resource implements WeatherResourceInterface
 {
+    /**
+     * @throws \Exception
+     */
     public function getResponse(): array
     {
         $date = $this->getLocalDatetime($this->resource['dt'], $this->resource['timezone']);
@@ -23,7 +26,7 @@ class WeatherResource extends Resource implements WeatherResourceInterface
             'timestamp' => $this->resource['dt'],
             'date' => $date->isoFormat('MMMM DD, YYYY'),
             'time' => $date->isoFormat('hh:mmA'),
-            'month_day' =>$date->isoFormat('MMMM d'),
+            'month_day' => $date->isoFormat('MMMM d'),
             'day_of_week' => $date->isoFormat('dddd'),
             'timezone' => $this->resource['timezone'],
             'coordinate' => [
@@ -46,7 +49,7 @@ class WeatherResource extends Resource implements WeatherResourceInterface
 
             // Wind
             'wind_speed' => ($this->resource['wind']['speed'] * 3.6),
-            'wind_direction' => Direction::convertFromDegrees((int)$this->resource['wind']['deg']),
+            'wind_direction' => Direction::convertFromDegrees((int) $this->resource['wind']['deg']),
 
             // sys
             'sunrise' => $this->getLocalDatetime($this->resource['sys']['sunrise'], $this->resource['timezone'])
@@ -56,16 +59,17 @@ class WeatherResource extends Resource implements WeatherResourceInterface
         ];
     }
 
+    /**
+     * @throws \Exception
+     */
     private function getLocalDatetime(int $unixTimestamp, int $timezoneInSeconds): Carbon
     {
         return Carbon::createFromTimestamp($unixTimestamp)
-            ->setTimezone(
-                $this->secondsToHour($timezoneInSeconds)
-            );
+            ->setTimezone((string) $this->secondsToHour($timezoneInSeconds));
     }
 
     private function secondsToHour(int $seconds): int
     {
-        return $seconds/3600;
+        return $seconds / 3600;
     }
 }

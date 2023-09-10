@@ -9,3 +9,12 @@ parameters:
     - '/Method App\\Http\\Middleware\\Authenticate::redirectTo\(\) should return string\|null but return statement is missing./'
     - '/Method App\\Http\\Middleware\\RedirectIfAuthenticated::handle\(\) should return Illuminate\\Http\\RedirectResponse\|Illuminate\\Http\\Response but returns Illuminate\\Http\\RedirectResponse\|Illuminate\\Routing\\Redirector./'
 
+    # TODO: Skip PhpStan Known Error: https://github.com/phpstan/phpstan-symfony/issues/23
+    - '/Parameter \#1 \$json of function json_decode expects string, string\|false given./'
+    - '/Parameter \#1 \$body of static method Illuminate\\Support\\Facades\\Http::response\(\) expects array\|string\|null, string\|false given/'
+
+    # TODO: Skip this! Laravel codebase
+    - '/(.*?) has parameter \$code with no type specified/'
+    - '/(.*?) has parameter \$message with no type specified/'
+    - '/(.*?) no value type specified in iterable type array/'
+    - '/(.*?) no value type specified in iterable type iterable./'

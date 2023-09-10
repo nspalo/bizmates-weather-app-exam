@@ -5,46 +5,34 @@ declare(strict_types=1);
 namespace Unit\Services\GeoapifyApi\Resources;
 
 use App\Services\GeoapifyApi\Resources\GeolocationResource;
-use PHPUnit\Framework\TestCase;
+use Unit\TestCase;
 
 class GeolocationResourceTest extends TestCase
 {
     /**
-     * @return iterable
+     * @return void
+     * @throws \JsonException
      */
-    public function getTestData(): iterable
+    public function testResourceData(): void
     {
-        yield [
-            [
-                'city' => 'City Name',
-                'country' => 'Country Name',
-                'country_code' => 'ABC',
-                'formatted' => 'City Name, Country Name',
-                'lon' => '0123.4',
-                'lat' => '5678.9',
+        $apiServiceTestResponse = file_get_contents(
+            base_path('tests/Fixtures/ApiResponse/geocoding-response.json')
+        );
+
+        $data = json_decode($apiServiceTestResponse, true, 512, JSON_THROW_ON_ERROR)['results'];
+
+        $expected = [
+            'city' => 'Tokyo',
+            'country' => 'Japan',
+            'country_code' => 'jp',
+            'formatted' => 'Tokyo, Japan',
+            'coordinate' => [
+                'lon' => '139.7744912',
+                'lat' => '35.6840574',
             ],
         ];
-    }
 
-    /**
-     * @param array $data
-     * @return void
-     * @dataProvider getTestData
-     */
-    public function testResourceData(array $data): void
-    {
-        $expected = [
-            'city' => 'City Name',
-            'country' => 'Country Name',
-            'country_code' => 'ABC',
-            'formatted' => 'City Name, Country Name',
-            'coordinate' => [
-                'lon' => '0123.4',
-                'lat' => '5678.9',
-            ]
-        ];
-
-        $resource = new GeolocationResource([$data]);
+        $resource = new GeolocationResource($data);
 
         self::assertEquals($expected, $resource->getResponse());
         self::assertEquals(\array_keys($expected), \array_keys($resource->getResponse()));

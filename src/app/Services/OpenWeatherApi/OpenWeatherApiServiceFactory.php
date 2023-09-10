@@ -25,7 +25,6 @@ class OpenWeatherApiServiceFactory implements OpenWeatherApiServiceFactoryInterf
         $this->services = ServiceCollector::filterByClass($services, OpenWeatherApiServiceInterface::class);
     }
 
-
     /**
      * @param WeatherTypeEnum $weatherApiType
      * @return OpenWeatherApiServiceInterface

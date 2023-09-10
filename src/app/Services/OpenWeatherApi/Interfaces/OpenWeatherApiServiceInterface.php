@@ -10,5 +10,6 @@ use App\Services\GeoapifyApi\Resources\GeolocationResource;
 interface OpenWeatherApiServiceInterface
 {
     public function supports(WeatherTypeEnum $weatherApiType): bool;
+
     public function getWeatherData(GeolocationResource $geolocation): WeatherResourceInterface;
 }

@@ -8,6 +8,10 @@ use App\Services\UrlQueryStringBuilder\Interfaces\UrlQueryStringBuilderServiceIn
 
 class UrlQueryStringBuilderService implements UrlQueryStringBuilderServiceInterface
 {
+    /**
+     * @param array $queryParam
+     * @return string
+     */
     public function build(array $queryParam): string
     {
         return implode(

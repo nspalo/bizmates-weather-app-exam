@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 enum Direction: string
@@ -14,18 +16,19 @@ enum Direction: string
     case NorthSouth = "NW";
 
     /**
-     * Convert Degrees to Direction using 8 Wind Compass Implementation
+     * Convert Degrees to Direction using 8 Point Compass Implementation
      * - Cardinal Directions: N, E, S, W
      * - Ordinal Directions: NE, SE, SW, NW
      */
     public static function convertFromDegrees(int $degrees = 0): string
     {
         if($degrees < 0) {
-            $degrees *= -1; // Handle negative input value
+            // Handle negative input value
+            $degrees *= -1;
         }
 
-        $direction = floor(($degrees/45)) % 8;
+        $index = \floor(($degrees/45)) % 8;
 
-        return self::cases()[$direction]->value;
+        return self::cases()[$index]->value;
     }
 }

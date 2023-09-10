@@ -8,12 +8,16 @@ use App\Services\UrlQueryStringBuilder\Interfaces\UrlQueryStringBuilderServiceIn
 
 class UrlQueryStringBuilderService implements UrlQueryStringBuilderServiceInterface
 {
+    /**
+     * @param array $queryParam
+     * @return string
+     */
     public function build(array $queryParam): string
     {
         return implode(
             '&',
             array_map(
-                static function($key, $value){
+                static function ($key, $value) {
                     return $key . '=' . $value;
                 },
                 array_keys($queryParam),

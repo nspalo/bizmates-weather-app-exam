@@ -9,11 +9,11 @@ use App\Http\Controllers\Controller;
 use App\Services\GeoapifyApi\Interfaces\GeoapifyApiServiceInterface;
 use App\Services\OpenWeatherApi\Interfaces\OpenWeatherApiServiceFactoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class WeatherUpdateController extends Controller
 {
     protected GeoapifyApiServiceInterface $geoapifyGeocodingService;
+
     protected OpenWeatherApiServiceFactoryInterface $weatherApiServiceFactory;
 
     public function __construct(
@@ -24,16 +24,20 @@ class WeatherUpdateController extends Controller
         $this->weatherApiServiceFactory = $weatherApiServiceFactory;
     }
 
-    public function index(Request $request): View
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index(Request $request)
     {
         $location = $request->get('location') ?? \config('services.api.geoapify.default_search');
 
         $responseGeolocation = $this->geoapifyGeocodingService->getGeolocation($location);
 
-        $responseCurrentWeather =  $this->weatherApiServiceFactory->make(WeatherTypeEnum::Current)
+        $responseCurrentWeather = $this->weatherApiServiceFactory->make(WeatherTypeEnum::Current)
             ->getWeatherData($responseGeolocation);
 
-        $responseForecastWeather =  $this->weatherApiServiceFactory->make(WeatherTypeEnum::Forecast)
+        $responseForecastWeather = $this->weatherApiServiceFactory->make(WeatherTypeEnum::Forecast)
             ->getWeatherData($responseGeolocation);
 
         $data = [

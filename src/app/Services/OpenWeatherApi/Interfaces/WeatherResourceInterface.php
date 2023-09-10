@@ -6,4 +6,5 @@ namespace App\Services\OpenWeatherApi\Interfaces;
 
 interface WeatherResourceInterface
 {
+    public function getResponse(): array;
 }

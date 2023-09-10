@@ -1,5 +1,5 @@
-<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+<header class="d-flex align-items-center pb-2 mb-2 border-bottom">
     <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <span class="fs-4">BizmatesPh Weather App Exam</span>
+        <span class="display-3">{{ config('app.name', 'Weather App') }}</span>
     </a>
 </header>

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Unit\Services\OpenWeatherApi\Resources;
 
 use App\Services\OpenWeatherApi\Resources\WeatherResource;
-use Illuminate\Support\Facades\Http;
 use Unit\TestCase;
 
 class WeatherResourceTest extends TestCase
@@ -33,7 +32,7 @@ class WeatherResourceTest extends TestCase
             'timezone' => 28800,
             'coordinate' => [
                 'lon' => 121.0764,
-                'lat' => 14.5605
+                'lat' => 14.5605,
             ],
             'type' => 'Clouds',
             'description' => 'Few clouds',

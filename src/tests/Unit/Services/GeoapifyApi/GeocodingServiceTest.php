@@ -29,13 +29,13 @@ class GeocodingServiceTest extends TestCase
         ]);
 
         $expected = [
-            "city" => "Tokyo",
-            "country" => "Japan",
-            "country_code" => "jp",
-            "formatted" => "Tokyo, Japan",
-            "coordinate" => [
-                "lon" => 139.7744912,
-                "lat" => 35.6840574,
+            'city' => 'Tokyo',
+            'country' => 'Japan',
+            'country_code' => 'jp',
+            'formatted' => 'Tokyo, Japan',
+            'coordinate' => [
+                'lon' => 139.7744912,
+                'lat' => 35.6840574,
             ],
         ];
 

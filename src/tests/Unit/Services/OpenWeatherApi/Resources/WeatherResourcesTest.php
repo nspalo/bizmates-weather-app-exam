@@ -35,7 +35,7 @@ class WeatherResourcesTest extends TestCase
                 'timezone' => 28800,
                 'coordinate' => [
                     'lon' => 121.0764,
-                    'lat' => 14.5605
+                    'lat' => 14.5605,
                 ],
                 'type' => 'Clouds',
                 'description' => 'Broken clouds',
@@ -45,7 +45,7 @@ class WeatherResourcesTest extends TestCase
                 'temp_max' => 32.22,
                 'feels_like' => 38.57,
                 'humidity' => 63,
-                'wind_speed' =>  2.3760000000000003,
+                'wind_speed' => 2.3760000000000003,
                 'wind_direction' => 'SW',
                 'sunrise' => '05:44AM',
                 'sunset' => '06:02PM',
@@ -62,7 +62,7 @@ class WeatherResourcesTest extends TestCase
                 'timezone' => 28800,
                 'coordinate' => [
                     'lon' => 121.0764,
-                    'lat' => 14.5605
+                    'lat' => 14.5605,
                 ],
                 'type' => 'Rain',
                 'description' => 'Light rain',
@@ -77,7 +77,7 @@ class WeatherResourcesTest extends TestCase
                 'sunrise' => '05:44AM',
                 'sunset' => '06:02PM',
                 'pressure' => 1008,
-            ]
+            ],
         ];
 
         $resource = new WeatherResources($data);

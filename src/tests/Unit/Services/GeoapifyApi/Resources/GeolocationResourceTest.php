@@ -30,7 +30,7 @@ class GeolocationResourceTest extends TestCase
             'coordinate' => [
                 'lon' => '139.7744912',
                 'lat' => '35.6840574',
-            ]
+            ],
         ];
 
         $resource = new GeolocationResource($data);

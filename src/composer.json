@@ -63,6 +63,12 @@
         ],
         "ecs-all": [
             "vendor/bin/ecs check app tests --clear-cache"
+        ],
+        "ecs-fix-app": [
+            "vendor/bin/ecs check app --fix --clear-cache"
+        ],
+        "ecs-fix-test": [
+            "vendor/bin/ecs check tests --fix --clear-cache"
         ]
     },
     "extra": {

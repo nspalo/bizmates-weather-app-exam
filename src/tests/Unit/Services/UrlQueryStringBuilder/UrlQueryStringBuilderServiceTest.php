@@ -7,7 +7,6 @@ namespace Unit\Services\UrlQueryStringBuilder;
 use App\Services\UrlQueryStringBuilder\UrlQueryStringBuilderService;
 use Unit\TestCase;
 
-
 class UrlQueryStringBuilderServiceTest extends TestCase
 {
     public function testBuild(): void
@@ -24,7 +23,6 @@ class UrlQueryStringBuilderServiceTest extends TestCase
 
         self::assertEquals($expected, $actual);
     }
-
 
     public function testBuildEmptyParam(): void
     {

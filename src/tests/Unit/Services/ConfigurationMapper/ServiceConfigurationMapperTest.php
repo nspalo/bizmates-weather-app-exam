@@ -8,7 +8,6 @@ use App\Services\ConfigurationMapper\Exceptions\UnknownServiceConfigurationExcep
 use App\Services\ConfigurationMapper\ServiceConfigurationMapper;
 use Unit\TestCase;
 
-
 class ServiceConfigurationMapperTest extends TestCase
 {
     /**

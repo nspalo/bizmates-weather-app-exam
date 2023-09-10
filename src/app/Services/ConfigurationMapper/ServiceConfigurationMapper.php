@@ -69,6 +69,6 @@ class ServiceConfigurationMapper implements ServiceConfigurationMapperInterface
             return null;
         }
 
-        return (string)$value;
+        return (string) $value;
     }
 }

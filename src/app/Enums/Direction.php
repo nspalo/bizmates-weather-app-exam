@@ -6,14 +6,14 @@ namespace App\Enums;
 
 enum Direction: string
 {
-    case North = "N";
-    case NorthEast = "NE";
-    case East = "E";
-    case SouthEast = "SE";
-    case South = "S";
-    case SouthWest = "SW";
-    case West = "W";
-    case NorthSouth = "NW";
+    case North = 'N';
+    case NorthEast = 'NE';
+    case East = 'E';
+    case SouthEast = 'SE';
+    case South = 'S';
+    case SouthWest = 'SW';
+    case West = 'W';
+    case NorthSouth = 'NW';
 
     /**
      * Convert Degrees to Direction using 8 Point Compass Implementation
@@ -27,7 +27,7 @@ enum Direction: string
             $degrees *= -1;
         }
 
-        $index = \floor(($degrees/45)) % 8;
+        $index = \floor(($degrees / 45)) % 8;
 
         return self::cases()[$index]->value;
     }

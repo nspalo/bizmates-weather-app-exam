@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 class WeatherUpdateController extends Controller
 {
     protected GeoapifyApiServiceInterface $geoapifyGeocodingService;
+
     protected OpenWeatherApiServiceFactoryInterface $weatherApiServiceFactory;
 
     public function __construct(
@@ -33,10 +34,10 @@ class WeatherUpdateController extends Controller
 
         $responseGeolocation = $this->geoapifyGeocodingService->getGeolocation($location);
 
-        $responseCurrentWeather =  $this->weatherApiServiceFactory->make(WeatherTypeEnum::Current)
+        $responseCurrentWeather = $this->weatherApiServiceFactory->make(WeatherTypeEnum::Current)
             ->getWeatherData($responseGeolocation);
 
-        $responseForecastWeather =  $this->weatherApiServiceFactory->make(WeatherTypeEnum::Forecast)
+        $responseForecastWeather = $this->weatherApiServiceFactory->make(WeatherTypeEnum::Forecast)
             ->getWeatherData($responseGeolocation);
 
         $data = [

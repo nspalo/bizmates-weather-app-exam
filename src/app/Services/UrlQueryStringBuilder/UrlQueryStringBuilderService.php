@@ -17,7 +17,7 @@ class UrlQueryStringBuilderService implements UrlQueryStringBuilderServiceInterf
         return implode(
             '&',
             array_map(
-                static function($key, $value){
+                static function ($key, $value) {
                     return $key . '=' . $value;
                 },
                 array_keys($queryParam),

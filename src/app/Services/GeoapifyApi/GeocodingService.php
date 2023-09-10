@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Http;
 class GeocodingService implements GeoapifyApiServiceInterface
 {
     private UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService;
+
     private ServiceConfigurationMapperInterface $serviceConfigurationMapper;
 
     /**
@@ -28,6 +29,20 @@ class GeocodingService implements GeoapifyApiServiceInterface
         $this->urlQueryStringBuilderService = $urlQueryStringBuilderService;
 
         $this->serviceConfigurationMapper->loadConfig('services.api.geoapify');
+    }
+
+    /**
+     * @param string $location
+     * @return GeolocationResource
+     * @throws RequestException
+     */
+    public function getGeolocation(string $location): GeolocationResource
+    {
+        $geolocationUrl = $this->buildGeoapifyApiUrl($location);
+
+        $responseGeolocation = Http::get($geolocationUrl)->throw()->json('results');
+
+        return new GeolocationResource($responseGeolocation);
     }
 
     /**
@@ -50,19 +65,5 @@ class GeocodingService implements GeoapifyApiServiceInterface
         $queryString = $this->urlQueryStringBuilderService->build($queryParam);
 
         return 'https://' . $serviceApiUri  . '?' . $queryString;
-    }
-
-    /**
-     * @param string $location
-     * @return GeolocationResource
-     * @throws RequestException
-     */
-    public function getGeolocation(string $location): GeolocationResource
-    {
-        $geolocationUrl = $this->buildGeoapifyApiUrl($location);
-
-        $responseGeolocation = Http::get($geolocationUrl)->throw()->json('results');
-
-        return new GeolocationResource($responseGeolocation);
     }
 }

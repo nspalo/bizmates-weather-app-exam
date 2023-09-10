@@ -12,6 +12,10 @@ use App\Services\OpenWeatherApi\Resources\WeatherResource;
 
 class WeatherUpdateService extends AbstractOpenWeatherApiService implements OpenWeatherApiServiceInterface
 {
+    /**
+     * @param GeolocationResource $geolocation
+     * @return WeatherResourceInterface
+     */
     public function getWeatherData(GeolocationResource $geolocation): WeatherResourceInterface
     {
         $openWeatherApiResponse = $this->sendRequest($geolocation, WeatherTypeEnum::Current);
@@ -19,6 +23,10 @@ class WeatherUpdateService extends AbstractOpenWeatherApiService implements Open
         return new WeatherResource($openWeatherApiResponse->json());
     }
 
+    /**
+     * @param WeatherTypeEnum $weatherApiType
+     * @return bool
+     */
     public function supports(WeatherTypeEnum $weatherApiType): bool
     {
         return $weatherApiType === WeatherTypeEnum::Current;

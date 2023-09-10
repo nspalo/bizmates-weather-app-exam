@@ -8,6 +8,7 @@ use App\Services\ConfigurationMapper\Interfaces\ServiceConfigurationMapperInterf
 use App\Services\GeoapifyApi\Interfaces\GeoapifyApiServiceInterface;
 use App\Services\GeoapifyApi\Resources\GeolocationResource;
 use App\Services\UrlQueryStringBuilder\Interfaces\UrlQueryStringBuilderServiceInterface;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 
 class GeocodingService implements GeoapifyApiServiceInterface
@@ -15,6 +16,10 @@ class GeocodingService implements GeoapifyApiServiceInterface
     private UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService;
     private ServiceConfigurationMapperInterface $serviceConfigurationMapper;
 
+    /**
+     * @param ServiceConfigurationMapperInterface $serviceConfigurationMapper
+     * @param UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService
+     */
     public function __construct(
         ServiceConfigurationMapperInterface $serviceConfigurationMapper,
         UrlQueryStringBuilderServiceInterface $urlQueryStringBuilderService
@@ -25,6 +30,10 @@ class GeocodingService implements GeoapifyApiServiceInterface
         $this->serviceConfigurationMapper->loadConfig('services.api.geoapify');
     }
 
+    /**
+     * @param string $location
+     * @return string
+     */
     private function buildGeoapifyApiUrl(string $location): string
     {
         $serviceApiUri = $this->serviceConfigurationMapper->getByKey('uri');
@@ -43,13 +52,17 @@ class GeocodingService implements GeoapifyApiServiceInterface
         return 'https://' . $serviceApiUri  . '?' . $queryString;
     }
 
+    /**
+     * @param string $location
+     * @return GeolocationResource
+     * @throws RequestException
+     */
     public function getGeolocation(string $location): GeolocationResource
     {
         $geolocationUrl = $this->buildGeoapifyApiUrl($location);
 
-        $responseGeolocation = Http::get($geolocationUrl);
-        $data = $responseGeolocation->json('results');
+        $responseGeolocation = Http::get($geolocationUrl)->throw()->json('results');
 
-        return new GeolocationResource($data);
+        return new GeolocationResource($responseGeolocation);
     }
 }

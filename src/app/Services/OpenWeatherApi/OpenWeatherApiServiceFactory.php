@@ -17,12 +17,18 @@ class OpenWeatherApiServiceFactory implements OpenWeatherApiServiceFactoryInterf
      */
     private $services;
 
+    /**
+     * @param iterable $services
+     */
     public function __construct(iterable $services)
     {
         $this->services = ServiceCollector::filterByClass($services, OpenWeatherApiServiceInterface::class);
     }
 
+
     /**
+     * @param WeatherTypeEnum $weatherApiType
+     * @return OpenWeatherApiServiceInterface
      * @throws UnknownOpenWeatherApiServiceException
      */
     public function make(WeatherTypeEnum $weatherApiType): OpenWeatherApiServiceInterface

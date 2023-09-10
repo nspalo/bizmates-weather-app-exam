@@ -24,6 +24,10 @@ class WeatherUpdateController extends Controller
         $this->weatherApiServiceFactory = $weatherApiServiceFactory;
     }
 
+    /**
+     * @param Request $request
+     * @return View
+     */
     public function index(Request $request): View
     {
         $location = $request->get('location') ?? \config('services.api.geoapify.default_search');

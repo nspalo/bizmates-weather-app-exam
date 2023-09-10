@@ -1,0 +1,54 @@
+{
+    "results": [
+        {
+            "datasource": {
+                "sourcename": "openstreetmap",
+                "attribution": "© OpenStreetMap contributors",
+                "license": "Open Database License",
+                "url": "https://www.openstreetmap.org/copyright"
+            },
+            "country": "Japan",
+            "country_code": "jp",
+            "city": "Tokyo",
+            "lon": 139.7744912,
+            "lat": 35.6840574,
+            "formatted": "Tokyo, Japan",
+            "address_line1": "Tokyo",
+            "address_line2": "Japan",
+            "category": "administrative",
+            "timezone": {
+                "name": "Asia/Tokyo",
+                "offset_STD": "+09:00",
+                "offset_STD_seconds": 32400,
+                "offset_DST": "+09:00",
+                "offset_DST_seconds": 32400,
+                "abbreviation_STD": "JST",
+                "abbreviation_DST": "JST"
+            },
+            "plus_code": "8Q7XMQMF+JQ",
+            "plus_code_short": "MQMF+JQ Tokyo, Japan",
+            "result_type": "city",
+            "rank": {
+                "importance": 0.8593311914925306,
+                "popularity": 7.1728624534266245,
+                "confidence": 1,
+                "confidence_city_level": 1,
+                "match_type": "full_match"
+            },
+            "place_id": "5146e1c4a1c8786140591ccb60318fd74140f00101f901d58b170000000000c00208",
+            "bbox": {
+                "lon1": 135.8536855,
+                "lat1": 20.2145811,
+                "lon2": 154.205541,
+                "lat2": 35.8984245
+            }
+        }
+    ],
+    "query": {
+        "text": "Tokyo",
+        "parsed": {
+            "city": "tokyo",
+            "expected_type": "unknown"
+        }
+    }
+}

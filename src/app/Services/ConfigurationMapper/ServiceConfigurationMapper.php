@@ -9,6 +9,9 @@ use App\Services\ConfigurationMapper\Interfaces\ServiceConfigurationMapperInterf
 
 class ServiceConfigurationMapper implements ServiceConfigurationMapperInterface
 {
+    /**
+     * @var array|null
+     */
     private ?array $config;
 
     public function __construct()
@@ -51,6 +54,8 @@ class ServiceConfigurationMapper implements ServiceConfigurationMapperInterface
 
     /**
      * @throws UnknownServiceConfigurationException
+     * @param string $key
+     * @return string|null
      */
     public function getByKey(string $key): ?string
     {
@@ -58,12 +63,12 @@ class ServiceConfigurationMapper implements ServiceConfigurationMapperInterface
             throw new UnknownServiceConfigurationException();
         }
 
-        $value = array_search($key, array_flip($this->config), true);
+        $value = \array_search($key, \array_flip($this->config), true);
 
         if ($value === false) {
             return null;
         }
 
-        return $value;
+        return (string)$value;
     }
 }

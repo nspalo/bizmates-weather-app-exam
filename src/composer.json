@@ -52,14 +52,17 @@
         "phpunit": [
             "vendor/bin/phpunit --configuration phpunit.xml --coverage-text"
         ],
-        "phpstan-check": [
+        "phpstan": [
             "vendor/bin/phpstan --configuration=./phpstan.neon"
         ],
-        "ecs-check-app": [
+        "ecs-app": [
             "vendor/bin/ecs check app --clear-cache"
         ],
-        "ecs-check-test": [
+        "ecs-test": [
             "vendor/bin/ecs check tests --clear-cache"
+        ],
+        "ecs-all": [
+            "vendor/bin/ecs check app tests --clear-cache"
         ]
     },
     "extra": {

@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Unit\Services\UrlQueryStringBuilder;
 
 use App\Services\UrlQueryStringBuilder\UrlQueryStringBuilderService;
-use PHPUnit\Framework\TestCase;
+use Unit\TestCase;
+
 
 class UrlQueryStringBuilderServiceTest extends TestCase
 {

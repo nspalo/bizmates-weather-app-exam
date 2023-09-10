@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Unit\Enums;
 
 use App\Enums\Direction;
-use PHPUnit\Framework\TestCase;
+use Unit\TestCase;
 
 class DirectionTest extends TestCase
 {
+    /**
+     * @return mixed[]
+     */
     public function getDegreesTestData(): iterable
     {
         // Test Cardinal Directions

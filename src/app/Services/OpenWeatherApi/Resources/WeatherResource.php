@@ -7,6 +7,7 @@ namespace App\Services\OpenWeatherApi\Resources;
 use App\Enums\Direction;
 use App\Http\Resources\Resource;
 use App\Services\OpenWeatherApi\Interfaces\WeatherResourceInterface;
+use DateTimeZone;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
@@ -56,12 +57,17 @@ class WeatherResource extends Resource implements WeatherResourceInterface
         ];
     }
 
+    /**
+     * @throws \Exception
+     */
     private function getLocalDatetime(int $unixTimestamp, int $timezoneInSeconds): Carbon
     {
+        $timezone = new DateTimeZone(
+            (string)$this->secondsToHour($timezoneInSeconds)
+        );
+
         return Carbon::createFromTimestamp($unixTimestamp)
-            ->setTimezone(
-                $this->secondsToHour($timezoneInSeconds)
-            );
+            ->setTimezone($timezone);
     }
 
     private function secondsToHour(int $seconds): int

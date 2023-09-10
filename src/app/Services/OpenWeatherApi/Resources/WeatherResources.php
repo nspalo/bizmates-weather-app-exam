@@ -9,6 +9,9 @@ use App\Services\OpenWeatherApi\Interfaces\WeatherResourceInterface;
 
 class WeatherResources extends Resource implements WeatherResourceInterface
 {
+    /**
+     * @return array
+     */
     public function getResponse(): array
     {
         $weatherForecast = $this->resource['list'];

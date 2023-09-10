@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Services\GeoapifyApi\Interfaces\GeoapifyApiServiceInterface;
 use App\Services\OpenWeatherApi\Interfaces\OpenWeatherApiServiceFactoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class WeatherUpdateController extends Controller
 {
@@ -26,9 +25,9 @@ class WeatherUpdateController extends Controller
 
     /**
      * @param Request $request
-     * @return View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $location = $request->get('location') ?? \config('services.api.geoapify.default_search');
 

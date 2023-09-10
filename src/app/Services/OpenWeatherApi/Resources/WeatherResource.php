@@ -62,12 +62,8 @@ class WeatherResource extends Resource implements WeatherResourceInterface
      */
     private function getLocalDatetime(int $unixTimestamp, int $timezoneInSeconds): Carbon
     {
-        $timezone = new DateTimeZone(
-            (string)$this->secondsToHour($timezoneInSeconds)
-        );
-
         return Carbon::createFromTimestamp($unixTimestamp)
-            ->setTimezone($timezone);
+            ->setTimezone((string)$this->secondsToHour($timezoneInSeconds));
     }
 
     private function secondsToHour(int $seconds): int

@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 
 class WeatherResource extends Resource implements WeatherResourceInterface
 {
+    /**
+     * @throws \Exception
+     */
     public function getResponse(): array
     {
         $date = $this->getLocalDatetime($this->resource['dt'], $this->resource['timezone']);

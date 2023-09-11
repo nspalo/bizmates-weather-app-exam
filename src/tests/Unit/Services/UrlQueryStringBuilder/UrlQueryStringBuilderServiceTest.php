@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Unit\Services\UrlQueryStringBuilder;
 
 use App\Services\UrlQueryStringBuilder\UrlQueryStringBuilderService;
-use Unit\TestCase;
+use Tests\TestCase;
 
 class UrlQueryStringBuilderServiceTest extends TestCase
 {

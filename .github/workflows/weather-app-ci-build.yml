@@ -22,8 +22,11 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_KEY
 
     # Script Permissions
-    - name: Add Permission to Shell Scripts
-      run: chmod +x -R ./scripts/*.sh
+    - name: Setting up Permissions
+      run: |
+        chmod +x -R ./scripts/*.sh
+        mkdir -p ./bootstrap/cache/
+        chmod 777 ./storage/ ./bootstrap/cache -R
 
     # Docker Images
     - name: Building the Docker Images
@@ -58,6 +61,3 @@ jobs:
     # Teardown
     - name: Stop container and remove images
       run: ./scripts/down.sh -v
-
-    
-      

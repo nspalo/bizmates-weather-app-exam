@@ -25,7 +25,7 @@ jobs:
     - name: Setting up Permissions
       run: |
         chmod +x -R ./scripts/*.sh
-        mkdir -p ./bootstrap/cache/
+        mkdir -p ./storage/logs/ ./bootstrap/cache/
         chmod 777 ./storage/ ./bootstrap/cache -R
 
     # Docker Images

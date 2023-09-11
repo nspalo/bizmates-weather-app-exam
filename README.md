@@ -15,6 +15,8 @@ A simple weather forecasting application built with Laravel that can display wea
   - Automated coding standard checking using PhpStan & Easy Coding Standard
   - Automated testing using PhpUnit
 
+![Weather App](https://github.com/nspalo/bizmates-weather-app-exam/blob/feature/BWA-9-weather-app-readme/docker/documents/weather-app-sample-image.jpg)
+
 ## Web Stack
 - Docker
 - NginX stable-alpine

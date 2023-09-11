@@ -37,7 +37,7 @@ return [
             'max_output' => env('OPEN_WEATHER_MAX_OUTPUT', '5'),
             'unit' => env('OPEN_WEATHER_UNIT', 'metric'),
             'lang' => env('OPEN_WEATHER_LANG', 'en'),
-            'uri' => env('OPEN_WEATHER_API_URI', ''),
+            'uri' => env('OPEN_WEATHER_API_URI', 'api.openweathermap.org/data/2.5'),
         ],
         'geoapify' => [
             'filter' => env('GEOAPIFY_FILTER', 'countrycode:jp'),
@@ -46,7 +46,7 @@ return [
             'lang' => env('GEOAPIFY_LANG', 'en'),
             'max_output' => env('GEOAPIFY_MAX_OUTPUT', '1'),
             'type' => env('GEOAPIFY_TYPE', 'city'),
-            'uri' => env('GEOAPIFY_API_URI', ''),
+            'uri' => env('GEOAPIFY_API_URI', 'api.geoapify.com/v1/geocode/search'),
             'default_search' => env('GEOAPIFY_DEFAULT', 'Tokyo, Japan'),
         ],
     ],

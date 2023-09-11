@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Unit\Services\OpenWeatherApi\Resources;
 
 use App\Services\OpenWeatherApi\Resources\WeatherResources;
-use Unit\TestCase;
+use Tests\TestCase;
 
 class WeatherResourcesTest extends TestCase
 {

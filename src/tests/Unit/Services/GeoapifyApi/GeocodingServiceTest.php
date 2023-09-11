@@ -9,7 +9,7 @@ use App\Services\GeoapifyApi\GeocodingService;
 use App\Services\UrlQueryStringBuilder\Interfaces\UrlQueryStringBuilderServiceInterface;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
-use Unit\TestCase;
+use Tests\TestCase;
 
 class GeocodingServiceTest extends TestCase
 {

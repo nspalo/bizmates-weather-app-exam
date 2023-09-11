@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Unit\Enums;
 
 use App\Enums\Direction;
-use Unit\TestCase;
+use Tests\TestCase;
 
 class DirectionTest extends TestCase
 {

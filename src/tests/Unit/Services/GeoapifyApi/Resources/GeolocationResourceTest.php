@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Unit\Services\GeoapifyApi\Resources;
 
 use App\Services\GeoapifyApi\Resources\GeolocationResource;
-use Unit\TestCase;
+use Tests\TestCase;
 
 class GeolocationResourceTest extends TestCase
 {
